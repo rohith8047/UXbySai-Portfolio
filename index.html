@@ -193,14 +193,28 @@ section{padding:64px 56px;}
 /* Thug Life Drop Animation */
 .img-box::after, .ab-img-ph::after {
   content: ''; position: absolute;
-  top: -60px; left: 50%; transform: translateX(-50%);
-  width: 110px; height: 30px;
   background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iLTIgLTIgNjIgMTYiPjxwYXRoIGQ9Ik0wIDJoNTh2M2gtNHYyaC00djJoLTR2MkgzMVY4aC00VjVoLTJ2M2gtNHYzSDZWOUgyVjdIMFYyeiIvPjxwYXRoIGQ9Ik02IDRoNHYySDZWNHptNiAwaDJ2MmgtMlY0em0tMiAyaDR2MmgtNFY2em02IDBoMnYyaC0yVjZ6bS0yIDJoNHYyaC00Vjh6bTIyLTRoNHYyaC00VjR6bTYgMGgydjJoLTJWNHptLTIgMmg0djJoLTRWNnptNiAwaDJ2MmgtMlY2em0tMiAyaDR2MmgtNFY4eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==') no-repeat center/contain;
   opacity: 0; pointer-events: none; z-index: 20;
   transition: top 0.8s var(--ease-spring), opacity 0.4s ease;
 }
-.img-box.deal-with-it::after, .ab-img-ph.deal-with-it::after {
-  top: 28%; /* Adjusted higher to perfectly hit the eyes instead of the mouth */
+
+/* Hero Image Specific Alignment */
+.img-box::after {
+  top: -60px; left: 50%; transform: translateX(-50%);
+  width: 110px; height: 30px;
+}
+.img-box.deal-with-it::after {
+  top: 28%;
+  opacity: 1;
+}
+
+/* About Image Specific Alignment */
+.ab-img-ph::after {
+  top: -60px; left: 32%; transform: translateX(-50%) rotate(2deg); /* Slightly angled to match head */
+  width: 85px; height: 26px;
+}
+.ab-img-ph.deal-with-it::after {
+  top: 25%; /* Custom drop height to perfectly hit the eyes in this specific photo */
   opacity: 1;
 }
 
@@ -227,9 +241,9 @@ section{padding:64px 56px;}
   transition:transform 0.2s var(--ease-spring),background 0.2s;
 }
 .badge:hover{transform:translateY(-1px);background:var(--bg4);}
-.dot{width:5px;height:5px;border-radius:50%;background:var(--ink);animation:blink 2s infinite;}
+.dot{width:6px;height:6px;border-radius:50%;background:#506e2d;animation:blink 2s infinite;}
 .dot-g{background:#2a7a4a;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
+@keyframes blink{0%,100%{background-color:#506e2d;}50%{background-color:#ffffff;}}
 .h1{font-family:'DM Serif Display',serif;font-size:clamp(38px,4.8vw,63px);line-height:1.07;letter-spacing:-1.5px;color:var(--ink);}
 .h1 em{font-style:italic;color:var(--ink2);}
 
@@ -326,7 +340,8 @@ section{padding:64px 56px;}
 .bento-row-3{display:flex;align-items:flex-start;gap:32px;margin-bottom:48px;}
 .bento-card{background:#fdfcfb;border-radius:24px;border:0.5px solid var(--border);padding:56px;box-shadow:0 4px 20px rgba(24,22,15,0.02);}
 .bento-card.p-0{padding:0;overflow:hidden;}
-.ab-img-ph{width:100%;height:100%;background:#dcd8d0;display:flex;align-items:center;justify-content:center;color:var(--ink2);min-height:320px;overflow:hidden;border-radius:24px;cursor:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iLTIgLTIgNjIgMTYiPjxwYXRoIGQ9Ik0wIDJoNTh2M2gtNHYyaC00djJoLTR2MkgzMVY4aC00VjVoLTJ2M2gtNHYzSDZWOUgyVjdIMFYyeiIvPjxwYXRoIGQ9Ik02IDRoNHYySDZWNHptNiAwaDJ2MmgtMlY0em0tMiAyaDR2MmgtNFY2em02IDBoMnYyaC0yVjZ6bS0yIDJoNHYyaC00Vjh6bTIyLTRoNHYyaC00VjR6bTYgMGgydjJoLTJWNHptLTIgMmg0djJoLTRWNnptNiAwaDJ2MmgtMlY2em0tMiAyaDR2MmgtNFY4eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==') 45 12, auto;}
+/* Added position: relative so the glasses don't escape the box, and restored the cursor */
+.ab-img-ph{width:100%;height:100%;background:#dcd8d0;display:flex;align-items:center;justify-content:center;color:var(--ink2);min-height:320px;overflow:hidden;border-radius:24px;position:relative;cursor:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iLTIgLTIgNjIgMTYiPjxwYXRoIGQ9Ik0wIDJoNTh2M2gtNHYyaC00djJoLTR2MkgzMVY4aC00VjVoLTJ2M2gtNHYzSDZWOUgyVjdIMFYyeiIvPjxwYXRoIGQ9Ik02IDRoNHYySDZWNHptNiAwaDJ2MmgtMlY0em0tMiAyaDR2MmgtNFY2em02IDBoMnYyaC0yVjZ6bS0yIDJoNHYyaC00Vjh6bTIyLTRoNHYyaC00VjR6bTYgMGgydjJoLTJWNHptLTIgMmg0djJoLTRWNnptNiAwaDJ2MmgtMlY2em0tMiAyaDR2MmgtNFY4eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==') 45 12, auto;}
 .ab-img-ph img{width:100%;height:100%;object-fit:cover;object-position:center 10%;mix-blend-mode:multiply;filter:contrast(1.1) saturate(1.1);}
 .ab-me-h2{font-family:'DM Serif Display',serif;font-size:32px;margin-bottom:16px;color:var(--ink);}
 .ab-me-p{font-size:16px;color:var(--ink2);line-height:1.8;margin-bottom:32px;max-width:720px;}
@@ -444,6 +459,7 @@ section{padding:64px 56px;}
 }
 
 .ct-h2 { font-family: 'DM Serif Display', serif; font-size: 38px; line-height: 1.15; color: var(--ink); margin-bottom: 32px; letter-spacing: -0.5px; }
+.mob-br { display: none; }
 
 .ct-right { display: flex; flex-direction: column; gap: 16px; justify-content: center; }
 .ct-row {
@@ -467,6 +483,35 @@ section{padding:64px 56px;}
 .ct-row-r { display: flex; gap: 12px; flex-shrink: 0; }
 
 /* ─── FOOTER ──────────────────────────────────────────── */
+.build-badge {
+  display: inline-block;
+  background: #ecf1d6;
+  color: var(--ink);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0px var(--ink);
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease-spring), background 0.3s;
+  cursor: crosshair;
+}
+.build-badge:hover {
+  transform: translateY(-4px) rotate(-2deg) scale(1.02);
+  box-shadow: 8px 8px 0px var(--ink);
+  background: #e2ebba;
+}
+.build-badge:active {
+  transform: translateY(2px) rotate(0deg) scale(0.98);
+  box-shadow: 0px 0px 0px var(--ink);
+}
+.build-badge strong {
+  transition: color 0.3s;
+}
+.build-badge:hover strong {
+  color: #506e2d;
+}
+
 footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .ft{font-size:13px;color:var(--ink3);}
 
@@ -527,6 +572,9 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
   
   .hl-super:empty { display: none; }
   .hl-title { font-size: 26px; }
+  .hl-title br { display: none; } /* Let text wrap naturally on mobile */
+  
+  .exp-title { width: 100%; margin-bottom: 12px; margin-right: 0; } /* Break title to its own line */
   
   .testi-card { width: 320px; padding: 28px; }
 
@@ -535,6 +583,8 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
 
   .ct-box { grid-template-columns: 1fr; padding: 40px 24px; gap: 40px; }
   .ct-h2 { font-size: 32px; }
+  .desk-br { display: none; }
+  .mob-br { display: inline; }
   .ct-row { flex-direction: column; align-items: flex-start; }
   .ct-row-l { width: 100%; }
   .ct-row-r { width: 100%; display: flex; flex-direction: column; }
@@ -559,7 +609,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
   
   .bento-card, .hl-card { padding: 24px 20px; }
   .ab-me-h2 { font-size: 28px; }
-  .hl-title { font-size: 24px; }
+  .hl-title { font-size: 22px; }
   
   .testi-h2 { font-size: 28px; }
   .testi-card { width: 85vw; padding: 24px; }
@@ -573,7 +623,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
   .gal-item.big { width: 180px; height: 268px; }
 
   .ct-box { padding: 32px 16px; gap: 32px; }
-  .ct-h2 { font-size: 28px; margin-bottom: 24px; }
+  .ct-h2 { font-size: clamp(24px, 7vw, 28px); margin-bottom: 24px; }
   .ct-row { padding: 16px; gap: 16px; }
   .ct-row-l { gap: 8px; font-size: 14px; }
   .ct-btn { padding: 12px; }
@@ -969,7 +1019,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
           <path d="M 10 12 V 88" stroke="#3bc4c4" fill="none" stroke-width="6" />
           <path d="M 90 12 V 88" stroke="#3bc4c4" fill="none" stroke-width="6" />
         </svg>
-        <h2 class="ct-h2">Let's build<br/>something<br/>meaningful<br/>together.</h2>
+        <h2 class="ct-h2">Let's build <br class="desk-br"/>something <br class="mob-br"/>meaningful <br class="desk-br"/>together.</h2>
       </div>
       
       <div class="ct-right">
@@ -983,7 +1033,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
             </button>
           </div>
           <div class="ct-row-r">
-            <a href="tel:+918099777787" class="ct-btn">Call Me</a>
+            <a href="tel:+918099777787" target="_blank" class="ct-btn">Call Me</a>
             <a href="https://wa.me/918099777787" target="_blank" class="ct-btn">
               Send Hi 
               <svg width="14" height="14" viewBox="0 0 24 24" fill="#00E676"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -1001,7 +1051,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
             </button>
           </div>
           <div class="ct-row-r">
-            <a href="mailto:Rohith42008@gmail.com" class="ct-btn">Send a mail</a>
+            <a href="mailto:Rohith42008@gmail.com" target="_blank" class="ct-btn">Send a mail</a>
           </div>
         </div>
 
@@ -1019,6 +1069,13 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
           </div>
         </div>
 
+      </div>
+    </div>
+    
+    <!-- Build Highlight -->
+    <div style="text-align: center; margin-top: 48px;" class="fu2">
+      <div class="build-badge">
+        ⚡ Built and launched this website solo in ~3 days using <strong>Figma, DALL·E 3, Gemini, Claude, GitHub, &amp; Vercel</strong>.
       </div>
     </div>
   </div>
@@ -1203,10 +1260,23 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
     document.body.removeChild(textArea);
   }
 
-  // Thug Life Interactive Easter Egg (For Mobile & Desktop Clicks)
+  // Thug Life Interactive Easter Egg (Disabled on Web/Desktop, Active on Mobile)
   document.querySelectorAll('.img-box, .ab-img-ph').forEach(img => {
     img.addEventListener('click', () => {
-      img.classList.toggle('deal-with-it');
+      // Only allow the tap/click action on mobile screen sizes
+      if (window.innerWidth <= 960) {
+        img.classList.toggle('deal-with-it');
+      }
+    });
+  });
+
+  // Mobile Haptic Feedback for CTAs
+  document.querySelectorAll('a[class*="btn"], button, .cs-link, .stb').forEach(cta => {
+    cta.addEventListener('click', () => {
+      // Fire subtle 15ms vibration only on mobile devices that support it
+      if (window.innerWidth <= 960 && navigator.vibrate) {
+        navigator.vibrate(15);
+      }
     });
   });
 </script>
