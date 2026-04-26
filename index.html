@@ -204,11 +204,11 @@ section{padding:64px 56px;}
 
 /* Hero Image Specific Alignment */
 .img-box::after {
-  top: -60px; left: 50%; transform: translateX(-50%);
-  width: 110px; height: 30px;
+  top: -60px; left: 36%; transform: translateX(-50%);
+  width: 90px; height: 25px;
 }
 .img-box.deal-with-it::after {
-  top: 28%;
+  top: 24%; /* Adjusted to perfectly hit the eyes */
   opacity: 1;
 }
 
@@ -342,13 +342,30 @@ section{padding:64px 56px;}
 .bento-row-1{display:grid;grid-template-columns:300px 1fr;gap:24px;margin-bottom:24px;}
 .bento-row-2{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:48px;}
 .bento-row-3{display:flex;align-items:flex-start;gap:32px;margin-bottom:48px;}
-.bento-card{background:#fdfcfb;border-radius:24px;border:0.5px solid var(--border);padding:56px;box-shadow:0 4px 20px rgba(24,22,15,0.02);}
+/* Added position: relative so the badge can anchor to the card */
+.bento-card{position:relative;background:#fdfcfb;border-radius:24px;border:0.5px solid var(--border);padding:56px;box-shadow:0 4px 20px rgba(24,22,15,0.02);}
 .bento-card.p-0{padding:0;overflow:hidden;}
 /* Added position: relative so the glasses don't escape the box, and restored the cursor */
 .ab-img-ph{width:100%;height:100%;background:#dcd8d0;display:flex;align-items:center;justify-content:center;color:var(--ink2);min-height:320px;overflow:hidden;border-radius:24px;position:relative;cursor:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iLTIgLTIgNjIgMTYiPjxwYXRoIGQ9Ik0wIDJoNTh2M2gtNHYyaC00djJoLTR2MkgzMVY4aC00VjVoLTJ2M2gtNHYzSDZWOUgyVjdIMFYyeiIvPjxwYXRoIGQ9Ik02IDRoNHYySDZWNHptNiAwaDJ2MmgtMlY0em0tMiAyaDR2MmgtNFY2em02IDBoMnYyaC0yVjZ6bS0yIDJoNHYyaC00Vjh6bTIyLTRoNHYyaC00VjR6bTYgMGgydjJoLTJWNHptLTIgMmg0djJoLTRWNnptNiAwaDJ2MmgtMlY2em0tMiAyaDR2MmgtNFY4eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==') 45 12, auto;}
 .ab-img-ph img{width:100%;height:100%;object-fit:cover;object-position:center 10%;mix-blend-mode:multiply;filter:contrast(1.1) saturate(1.1);}
 .ab-me-h2{font-family:'DM Serif Display',serif;font-size:32px;margin-bottom:16px;color:var(--ink);}
 .ab-me-p{font-size:16px;color:var(--ink2);line-height:1.8;margin-bottom:32px;max-width:720px;}
+.ab-me-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+/* Overlapping Badge Styling */
+.ai-badge { 
+  height: 180px; width: auto; object-fit: contain; 
+  transition: transform 0.3s var(--ease-spring), filter 0.3s; 
+  filter: drop-shadow(0 8px 16px rgba(24,22,15,0.08)); 
+  cursor: help; display: none; 
+  position: absolute; bottom: -30px; right: -30px; /* Pulls it out of the card */
+  z-index: 10;
+}
+.ai-badge:hover { 
+  transform: translateY(-8px) scale(1.05); 
+  filter: drop-shadow(0 12px 28px rgba(24,22,15,0.15)); 
+}
+
 .hl-card{padding:40px 32px;background:#fdfcfb;border-radius:20px;border:0.5px solid var(--border);display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(24,22,15,0.02);transition:transform 0.3s var(--ease-spring);height:100%;}
 .hl-card:hover{transform:translateY(-4px);}
 .hl-super{font-size:14px;color:var(--ink2);min-height:22px;margin-bottom:8px;}
@@ -614,6 +631,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
   .bento-card, .hl-card { padding: 24px 20px; }
   .ab-me-h2 { font-size: 28px; }
   .hl-title { font-size: 22px; }
+  .ai-badge { height: 120px; bottom: -20px; right: -15px; } /* Scaled up and overlapping for mobile */
   
   .testi-h2 { font-size: 28px; }
   .testi-card { width: 85vw; padding: 24px; }
@@ -783,7 +801,10 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
         <div class="bento-card">
           <h2 class="ab-me-h2">About Me</h2>
           <p class="ab-me-p">I'm a Hyderabad, India–based UX/UI designer drawn to complex product problems that need to feel simple, intuitive, and scalable. I care about bringing clarity to ambiguity.</p>
-          <a href="#" class="btn-resume resume-btn" target="_blank">View Resume</a>
+          <div class="ab-me-actions">
+            <a href="#" class="btn-resume resume-btn" target="_blank">View Resume</a>
+            <img src="" alt="Google AI Essentials" class="ai-badge" title="Google AI Essentials Certified" id="aiBadgeImg" style="display: none;">
+          </div>
         </div>
       </div>
       
@@ -1103,6 +1124,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
     aboutImg: "https://drive.google.com/thumbnail?id=12K8TGU2oEnyNpvtfl7ja5Xvqnnh-ZG11&sz=w1000",     
     resumeUrl: "https://drive.google.com/file/d/1jL8IZ0BJomJeTCEVn-FKcGnnVDs8k0ey/view",    
     resumeDownloadUrl: "https://drive.google.com/uc?export=download&id=1jL8IZ0BJomJeTCEVn-FKcGnnVDs8k0ey",
+    aiBadgeUrl: "10MoSmSYnmmXv6X3O1w0yghFJnQcsMiUN", // Connected to your Google AI Essentials badge
     projects: [
       {
         title: "Reducing Booking Drop-offs by Simplifying the User Journey",
@@ -1176,6 +1198,20 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
       document.querySelectorAll('.resume-btn-download').forEach(a => {
         a.href = PORTFOLIO_DATA.resumeDownloadUrl;
       });
+    }
+    
+    // AI Badge Image Injection logic
+    if (PORTFOLIO_DATA.aiBadgeUrl && PORTFOLIO_DATA.aiBadgeUrl !== "PASTE_YOUR_LINK_HERE") {
+      const badgeImg = document.getElementById('aiBadgeImg');
+      if (badgeImg) {
+        // If it's a raw Drive ID (typically 33 characters) convert it, otherwise just use the link
+        if (!PORTFOLIO_DATA.aiBadgeUrl.startsWith('http')) {
+          badgeImg.src = `https://drive.google.com/thumbnail?id=${PORTFOLIO_DATA.aiBadgeUrl}&sz=w400`;
+        } else {
+          badgeImg.src = PORTFOLIO_DATA.aiBadgeUrl;
+        }
+        badgeImg.style.display = 'block';
+      }
     }
 
     // 2. Render Projects
