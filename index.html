@@ -167,6 +167,7 @@ section{padding:64px 56px;}
 .hero-h1-wrap:nth-child(1) .hero-h1-line{animation-delay:0.62s;}
 .hero-h1-wrap:nth-child(2) .hero-h1-line{animation-delay:0.74s;}
 .hero-h1-wrap:nth-child(3) .hero-h1-line{animation-delay:0.86s;}
+.hero-h1-wrap:nth-child(4) .hero-h1-line{animation-delay:0.98s;}
 @keyframes lineUp{to{opacity:1;transform:translateY(0);}}
 .hero-cycle{display:inline;}
 .hero-cycle::after{content:'|';font-style:normal;font-weight:300;margin-left:2px;animation:cur-blink 0.75s step-end infinite;}
@@ -656,7 +657,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
   section { padding: 48px 20px; }
   #home { padding: 100px 20px 48px; }
   
-  .h1 { font-size: 40px; line-height: 1.1; letter-spacing: -1px; }
+  .h1 { font-size: 34px; line-height: 1.12; letter-spacing: -1px; }
   .hero-sub { font-size: 15px; margin: 20px 0 32px; }
   .hero-badges { margin-bottom: 24px; }
   
@@ -672,6 +673,7 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
   .ab-me-h2 { font-size: 28px; }
   .hl-title { font-size: 22px; }
   .ai-badge { height: 120px; bottom: -20px; right: -15px; } /* Scaled up and overlapping for mobile */
+  .ab-img-ph.deal-with-it::after { top: 32%; } /* Adjust glasses to eyes on mobile */
   
   .testi-h2 { font-size: 28px; }
   .testi-main { font-size: 15px; }
@@ -736,7 +738,8 @@ footer{padding:28px 56px;border-top:0.5px solid var(--border);display:flex;align
       <h1 class="h1">
         <div class="hero-h1-wrap"><span class="hero-h1-line">Turning</span></div>
         <div class="hero-h1-wrap"><span class="hero-h1-line">complex problems</span></div>
-        <div class="hero-h1-wrap"><span class="hero-h1-line">into <em class="hero-cycle">clear solutions.</em></span></div>
+        <div class="hero-h1-wrap"><span class="hero-h1-line">into</span></div>
+        <div class="hero-h1-wrap"><span class="hero-h1-line"><em class="hero-cycle">clear solutions.</em></span></div>
       </h1>
       <p class="hero-sub">UX/UI Designer crafting end-to-end product experiences. Focused on clarity, usability, and measurable impact.</p>
       <div class="cos">
