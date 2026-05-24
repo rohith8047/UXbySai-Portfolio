@@ -1,0 +1,4 @@
+.DS_Store
+*.heic
+node_modules/
+.claude/

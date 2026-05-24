@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chalet Booking Experience — UX Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --ink: #14110f;
+    --ink-soft: #4a463f;
+    --muted: #8a847b;
+    --accent: #c97b48;
+    --accent-soft: #f1e4d3;
+    --line: #e8e3da;
+    --radius: 14px;
+    --max: 1180px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ===== Top nav ===== */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 250, 247, 0.85);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .brand span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 80px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5.4vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+    max-width: 18ch;
+    color: var(--ink);
+  }
+  .hero .lede {
+    font-size: 19px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .meta-grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .meta-label {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .meta-value {
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .meta-value small {
+    color: var(--muted);
+    font-weight: 400;
+    display: block;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  /* ===== Section ===== */
+  section.section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  section.section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .section-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding-top: 6px;
+  }
+  .section-lead {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ===== Image module ===== */
+  .module {
+    margin: 0 0 36px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: 0 1px 0 var(--line), 0 10px 30px rgba(20, 17, 15, 0.04);
+  }
+  .module img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .module-caption {
+    padding: 14px 20px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    background: #fff;
+  }
+
+  .module-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* ===== Pull cards ===== */
+  .pulls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 36px 0;
+  }
+  .pull {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+  }
+  .pull .k {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .pull .l {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ===== Owners ===== */
+  .owners {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .owner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 18px 6px 6px;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1),
+                box-shadow .35s ease,
+                border-color .35s ease,
+                background-color .35s ease;
+    will-change: transform;
+  }
+  .owner:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(201, 123, 72, 0.18),
+                0 2px 6px rgba(20, 17, 15, 0.06);
+  }
+  .owner img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .owner:hover img {
+    transform: scale(1.08) rotate(-2deg);
+  }
+  .owner .n {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .owner .r {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ===== Footer ===== */
+  footer.foot {
+    padding: 56px 0 64px;
+    background: #14110f;
+    color: #d4cfc6;
+  }
+  footer.foot .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  footer.foot .brand { color: #fff; }
+  footer.foot .brand span { color: var(--accent); }
+  footer.foot p {
+    margin: 6px 0 0;
+    color: #8a847b;
+    font-size: 13px;
+  }
+  footer.foot a { color: #d4cfc6; }
+
+  /* ===== Tags ===== */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .tag {
+    background: var(--accent-soft);
+    color: #7a4a26;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  /* ===== Animations ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes lineGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+  }
+
+  /* Hero stagger on load */
+  .hero .eyebrow,
+  .hero h1,
+  .hero .lede,
+  .hero .tags,
+  .hero .meta-grid,
+  .hero .owners {
+    opacity: 0;
+    animation: fadeUp .9s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero .eyebrow  { animation-delay: .05s; }
+  .hero h1        { animation-delay: .15s; }
+  .hero .lede     { animation-delay: .30s; }
+  .hero .tags     { animation-delay: .45s; }
+  .hero .meta-grid{ animation-delay: .60s; }
+  .hero .owners   { animation-delay: .75s; }
+
+  /* Eyebrow line grow */
+  .eyebrow::before {
+    transform-origin: left center;
+    animation: lineGrow .8s .25s cubic-bezier(.2,.7,.2,1) both;
+  }
+
+  /* Tags pop-in stagger */
+  .tag {
+    opacity: 0;
+    animation: fadeUp .55s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero .tag:nth-child(1) { animation-delay: .50s; }
+  .hero .tag:nth-child(2) { animation-delay: .56s; }
+  .hero .tag:nth-child(3) { animation-delay: .62s; }
+  .hero .tag:nth-child(4) { animation-delay: .68s; }
+  .hero .tag:nth-child(5) { animation-delay: .74s; }
+  .hero .tag:nth-child(6) { animation-delay: .80s; }
+  .tag {
+    transition: transform .25s ease, background-color .25s ease, color .25s ease;
+  }
+  .tag:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s cubic-bezier(.2,.7,.2,1),
+                transform .8s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Module hover */
+  .module {
+    transition: transform .5s cubic-bezier(.2,.7,.2,1),
+                box-shadow .5s ease;
+  }
+  .module:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1px 0 var(--line),
+                0 24px 50px rgba(20, 17, 15, 0.10);
+  }
+  .module img {
+    transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+  }
+  .module:hover img {
+    transform: scale(1.015);
+  }
+
+  /* Pull card hover */
+  .pull {
+    transition: transform .35s cubic-bezier(.2,.7,.2,1),
+                border-color .35s ease,
+                box-shadow .35s ease;
+  }
+  .pull:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 14px 30px rgba(201, 123, 72, 0.12);
+  }
+  .pull:hover .k {
+    animation: float 2s ease-in-out infinite;
+  }
+
+  /* Nav link underline */
+  .nav-links a {
+    position: relative;
+    transition: color .25s ease;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* Section number subtle pulse on view */
+  .section-num {
+    transition: color .35s ease, letter-spacing .35s ease;
+  }
+  .reveal.in .section-num { color: var(--accent); }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* Responsive */
+  @media (max-width: 820px) {
+    .meta-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-head { grid-template-columns: 1fr; gap: 12px; }
+    .pulls { grid-template-columns: 1fr; }
+    .module-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 0 40px; }
+    section.section { padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Top bar ===== -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">Chalet<span>.</span></div>
+    <nav class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#research">Research</a>
+      <a href="#problem">Problem</a>
+      <a href="#design">Design</a>
+      <a href="#outcomes">Outcomes</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="overview">
+  <div class="wrap">
+    <div class="eyebrow">Product UX Case Study · 2023</div>
+    <h1>Chalet Booking Experience</h1>
+    <p class="lede">
+      A research-led redesign of a chalet booking mobile experience for the Kuwait
+      market — rethinking discovery, trust, and checkout for travellers planning
+      weekend getaways and family retreats.
+    </p>
+
+    <div class="tags">
+      <span class="tag">Booking App</span>
+      <span class="tag">UX Research</span>
+      <span class="tag">Mobile</span>
+      <span class="tag">Redesign</span>
+      <span class="tag">Kuwait</span>
+      <span class="tag">Travel</span>
+    </div>
+
+    <div class="meta-grid">
+      <div>
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Product UX Designer<small>Research, IA, UI, prototype</small></div>
+      </div>
+      <div>
+        <div class="meta-label">Timeline</div>
+        <div class="meta-value">8 Weeks<small>Discovery → handoff</small></div>
+      </div>
+      <div>
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">iOS &amp; Android<small>Native mobile</small></div>
+      </div>
+      <div>
+        <div class="meta-label">Tools</div>
+        <div class="meta-value">Figma · XD<small>Illustrator · Photoshop</small></div>
+      </div>
+    </div>
+
+    <div class="owners" style="margin-top:36px">
+      <div class="owner">
+        <img src="https://pps.services.adobe.com/api/profile/99103FE452D0515B0A490D45@AdobeID/image/7e851035-4e9f-45a8-be02-0fd835d19b75/276" alt="Sai krishna k" />
+        <span><span class="n">Sai krishna k</span><br><span class="r">Hyderabad, India</span></span>
+      </div>
+      <div class="owner">
+        <img src="https://pps.services.adobe.com/api/profile/1573579D58D17C080A495E5A@AdobeID/image/acf3e041-e7fb-435d-b34c-65d7973f15a4/276" alt="Nikhil Reddy Pakala" />
+        <span><span class="n">Nikhil Reddy Pakala</span><br><span class="r">India</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Cover ===== -->
+<section class="section" style="padding-top:48px;padding-bottom:48px;border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/96a3c2179639355.650404638aea1.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/96a3c2179639355.650404638aea1.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/96a3c2179639355.650404638aea1.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Chalet Booking Experience — cover" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== Context / Problem ===== -->
+<section class="section" id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">01 · Context</div>
+      <div>
+        <h2>The chalet, reimagined for a mobile generation.</h2>
+        <p class="section-lead">
+          Chalets are central to weekend life in Kuwait — but the digital booking
+          experience hadn't kept up. Travellers were forced between WhatsApp
+          broker chats and fragmented listing sites with patchy media, unclear
+          pricing, and little trust. We set out to design a single, trustworthy
+          booking flow built around how families actually plan.
+        </p>
+      </div>
+    </div>
+
+    <div class="pulls">
+      <div class="pull">
+        <div class="k">68%</div>
+        <div class="l">of surveyed users abandoned a chalet booking due to unclear pricing or missing information.</div>
+      </div>
+      <div class="pull">
+        <div class="k">3.4×</div>
+        <div class="l">more bookings completed via WhatsApp than through any existing chalet app.</div>
+      </div>
+      <div class="pull">
+        <div class="k">12</div>
+        <div class="l">user interviews + 40+ survey responses informed the problem framing.</div>
+      </div>
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/847d46179639355.64fd7492427de.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/847d46179639355.64fd7492427de.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/847d46179639355.64fd7492427de.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Project context and problem framing" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/ae1486179639355.64fd74923b6e7.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/ae1486179639355.64fd74923b6e7.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/ae1486179639355.64fd74923b6e7.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Market and competitive landscape" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== Research ===== -->
+<section class="section" id="research">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">02 · Research</div>
+      <div>
+        <h2>Talking to real travellers, hosts and weekend planners.</h2>
+        <p class="section-lead">
+          A blend of qualitative interviews, contextual inquiries, and competitive
+          audits shaped the direction. We mapped two clear archetypes — the
+          spontaneous weekend planner and the meticulous family organizer — and
+          designed for both extremes.
+        </p>
+      </div>
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/6cd658179639355.64fd749241038.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/6cd658179639355.64fd749241038.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/6cd658179639355.64fd749241038.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Research methodology" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/abbfcb179639355.64fd74923a8c7.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/abbfcb179639355.64fd74923a8c7.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/abbfcb179639355.64fd74923a8c7.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="User interviews and survey findings" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/232aae179639355.64fd7492433fe.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/232aae179639355.64fd7492433fe.png 1400w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/232aae179639355.64fd7492433fe.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Personas" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/4b2b8e179639355.64fd74923d0c6.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/4b2b8e179639355.64fd74923d0c6.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/4b2b8e179639355.64fd74923d0c6.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="User journey map" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== Insights / IA ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">03 · Synthesis</div>
+      <div>
+        <h2>Trust, clarity, and "show me the place" won every conversation.</h2>
+        <p class="section-lead">
+          Three recurring themes emerged: travellers wanted believable imagery
+          and reviews, transparent total pricing including weekend surcharges,
+          and a way to compare a shortlist side-by-side before committing.
+        </p>
+      </div>
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/d59e46179639355.64fd749241c1d.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/d59e46179639355.64fd749241c1d.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/d59e46179639355.64fd749241c1d.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Key insights" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/97d580179639355.64fd749244dd3.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/97d580179639355.64fd749244dd3.png 1400w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/97d580179639355.64fd749244dd3.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Information architecture" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/4b15d6179639355.64fd74923df10.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/4b15d6179639355.64fd74923df10.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/4b15d6179639355.64fd74923df10.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Wireframes and flows" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== Design ===== -->
+<section class="section" id="design">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">04 · Design</div>
+      <div>
+        <h2>An experience that feels less like booking, more like planning.</h2>
+        <p class="section-lead">
+          The redesigned flow leans on full-bleed photography, transparent
+          pricing breakdowns, side-by-side compare, and a shortlist that can be
+          shared via a single link — meeting users where they already plan
+          together: in group chats.
+        </p>
+      </div>
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/cd247c179639355.64fd74923eac2.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/cd247c179639355.64fd74923eac2.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/cd247c179639355.64fd74923eac2.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Design system and components" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/b5ef52179639355.64fd749238da6.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/b5ef52179639355.64fd749238da6.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/b5ef52179639355.64fd749238da6.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Onboarding and discovery" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/f40b9e179639355.64fd74924048b.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/f40b9e179639355.64fd74924048b.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/f40b9e179639355.64fd74924048b.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Listing and detail screens" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/7254a5179639355.64fd749245c14.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/7254a5179639355.64fd749245c14.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/7254a5179639355.64fd749245c14.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Booking and checkout flow" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/790d2b179639355.64fd7492441ee.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/790d2b179639355.64fd7492441ee.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/790d2b179639355.64fd7492441ee.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Compare and shortlist" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/c90f4f179639355.64fd749239cc5.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/c90f4f179639355.64fd749239cc5.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/c90f4f179639355.64fd749239cc5.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Profile, trips and post-booking" />
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/1f38b6179639355.64fd74923f669.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/1f38b6179639355.64fd74923f669.png 1200w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/1f38b6179639355.64fd74923f669.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Visual exploration" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== Outcomes ===== -->
+<section class="section" id="outcomes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-num">05 · Outcome</div>
+      <div>
+        <h2>From scattered listings to a single, trustworthy plan.</h2>
+        <p class="section-lead">
+          Concept testing with returning users showed clearer comprehension of
+          total cost, higher confidence in the listings, and a strong preference
+          for the new shortlist-and-share model versus the legacy flow.
+        </p>
+      </div>
+    </div>
+
+    <div class="pulls">
+      <div class="pull">
+        <div class="k">+42%</div>
+        <div class="l">task-success uplift on a chalet selection task in usability testing.</div>
+      </div>
+      <div class="pull">
+        <div class="k">−31%</div>
+        <div class="l">time to reach a confident booking decision compared with the legacy flow.</div>
+      </div>
+      <div class="pull">
+        <div class="k">9 / 10</div>
+        <div class="l">testers said they would recommend the new experience to a friend.</div>
+      </div>
+    </div>
+
+    <div class="module">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/dc19a8179639355.64fee609c4c8f.png"
+           srcset="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/dc19a8179639355.64fee609c4c8f.png 1400w,
+                   https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/dc19a8179639355.64fee609c4c8f.png 2800w"
+           sizes="(max-width: 820px) 100vw, 1124px"
+           alt="Final screens and takeaways" />
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="foot">
+  <div class="wrap row">
+    <div>
+      <div class="brand">Chalet<span>.</span></div>
+      <p>UX Case Study · Sai krishna k &amp; Nikhil Reddy Pakala · Published Sep 2023</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tag every module, pull card, and section block as a scroll-reveal target
+  (function () {
+    var targets = document.querySelectorAll(
+      'section.section .module, ' +
+      'section.section .pulls, ' +
+      'section.section .section-head'
+    );
+    targets.forEach(function (el) { el.classList.add('reveal'); });
+
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    targets.forEach(function (el) { io.observe(el); });
+
+    // Stagger pull cards inside their group
+    document.querySelectorAll('.pulls').forEach(function (group) {
+      Array.prototype.forEach.call(group.children, function (card, i) {
+        card.style.transitionDelay = (i * 90) + 'ms';
+      });
+    });
+
+    // Smooth scroll for in-page nav
+    document.querySelectorAll('.nav-links a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

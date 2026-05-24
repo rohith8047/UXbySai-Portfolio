@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VigoCare — Remote Patient Monitoring UX Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f4f7fb;
+    --surface: #ffffff;
+    --ink: #0d1b2a;
+    --ink-soft: #3a4a5c;
+    --muted: #7b8fa6;
+    --accent: #2c6bed;
+    --accent-soft: #ddeaff;
+    --line: #dde5ef;
+    --radius: 14px;
+    --max: 1180px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ===== Top nav ===== */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(244, 247, 251, 0.88);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .brand span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    font-weight: 500;
+    position: relative;
+    transition: color .25s ease;
+  }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 80px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+    transform-origin: left center;
+    animation: lineGrow .8s .25s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5.4vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+    max-width: 18ch;
+    color: var(--ink);
+  }
+  .hero .lede {
+    font-size: 19px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .meta-grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .meta-label {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .meta-value {
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .meta-value small {
+    color: var(--muted);
+    font-weight: 400;
+    display: block;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  /* ===== Section ===== */
+  section.section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  section.section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .section-num {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding-top: 6px;
+    transition: color .35s ease, letter-spacing .35s ease;
+  }
+  .reveal.in .section-num { color: var(--accent); }
+
+  .section-lead {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* ===== Image module ===== */
+  .module {
+    margin: 0 0 36px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: 0 1px 0 var(--line), 0 10px 30px rgba(13, 27, 42, 0.06);
+    transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease;
+  }
+  .module:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1px 0 var(--line), 0 24px 50px rgba(13, 27, 42, 0.12);
+  }
+  .module img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+  }
+  .module:hover img { transform: scale(1.015); }
+  .module-caption {
+    padding: 14px 20px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    background: #fff;
+  }
+  .module-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* ===== Pull stat cards ===== */
+  .pulls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 36px 0;
+  }
+  .pull {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;
+  }
+  .pull:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 14px 30px rgba(44, 107, 237, 0.12);
+  }
+  .pull .k {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .pull:hover .k { animation: float 2s ease-in-out infinite; }
+  .pull .l {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ===== Tags ===== */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .tag {
+    background: var(--accent-soft);
+    color: #1a4ab0;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeUp .55s cubic-bezier(.2,.7,.2,1) forwards;
+    transition: transform .25s ease, background-color .25s ease, color .25s ease;
+  }
+  .tag:hover { transform: translateY(-2px); background: var(--accent); color: #fff; }
+  .hero .tag:nth-child(1) { animation-delay: .50s; }
+  .hero .tag:nth-child(2) { animation-delay: .56s; }
+  .hero .tag:nth-child(3) { animation-delay: .62s; }
+  .hero .tag:nth-child(4) { animation-delay: .68s; }
+  .hero .tag:nth-child(5) { animation-delay: .74s; }
+  .hero .tag:nth-child(6) { animation-delay: .80s; }
+
+  /* ===== Owner chips ===== */
+  .owners {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .owner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 18px 6px 6px;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+    will-change: transform;
+  }
+  .owner:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 24px rgba(44, 107, 237, 0.16);
+  }
+  .owner img {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .owner:hover img { transform: scale(1.08) rotate(-2deg); }
+  .owner .n { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .owner .r { font-size: 12px; color: var(--muted); }
+
+  /* ===== Insight list ===== */
+  .insight-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .insight-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    transition: border-color .25s, box-shadow .25s, transform .25s;
+  }
+  .insight-list li:hover {
+    border-color: var(--accent);
+    box-shadow: 0 6px 20px rgba(44,107,237,0.09);
+    transform: translateX(4px);
+  }
+  .insight-list li::before {
+    content: attr(data-n);
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  /* ===== Footer ===== */
+  footer.foot {
+    padding: 56px 0 64px;
+    background: #0d1b2a;
+    color: #c8d4e0;
+  }
+  footer.foot .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  footer.foot .brand { color: #fff; }
+  footer.foot .brand span { color: var(--accent); }
+  footer.foot p { margin: 6px 0 0; color: #5a7a96; font-size: 13px; }
+  footer.foot a { color: #c8d4e0; }
+
+  /* ===== Animations ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes lineGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-4px); }
+  }
+
+  /* Hero stagger */
+  .hero .eyebrow,
+  .hero h1,
+  .hero .lede,
+  .hero .tags,
+  .hero .meta-grid,
+  .hero .owners {
+    opacity: 0;
+    animation: fadeUp .9s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero .eyebrow  { animation-delay: .05s; }
+  .hero h1        { animation-delay: .15s; }
+  .hero .lede     { animation-delay: .30s; }
+  .hero .tags     { animation-delay: .45s; }
+  .hero .meta-grid{ animation-delay: .60s; }
+  .hero .owners   { animation-delay: .75s; }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* Responsive */
+  @media (max-width: 820px) {
+    .meta-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-head { grid-template-columns: 1fr; gap: 12px; }
+    .pulls { grid-template-columns: 1fr; }
+    .module-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 0 40px; }
+    section.section { padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Top bar ===== -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">Vigo<span>.</span></div>
+    <nav class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#research">Research</a>
+      <a href="#design">Design</a>
+      <a href="#outcomes">Outcomes</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="overview">
+  <div class="wrap">
+    <div class="eyebrow">Healthcare UX Case Study · 2021</div>
+    <h1>Remote Patient Monitoring</h1>
+    <p class="lede">
+      Designing a real-time vitals monitoring platform that helps doctors track patients
+      remotely, reduce care gaps, and make faster, smarter clinical decisions —
+      built for the future of digital healthcare.
+    </p>
+
+    <div class="tags">
+      <span class="tag">Healthcare UX</span>
+      <span class="tag">Dashboard Design</span>
+      <span class="tag">Mobile App</span>
+      <span class="tag">Data Visualization</span>
+      <span class="tag">IoT</span>
+      <span class="tag">Minimal UI</span>
+    </div>
+
+    <div class="meta-grid">
+      <div>
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Product UX Designer<small>Research, IA, UI, prototype</small></div>
+      </div>
+      <div>
+        <div class="meta-label">Timeline</div>
+        <div class="meta-value">6 Weeks<small>Discovery → handoff</small></div>
+      </div>
+      <div>
+        <div class="meta-label">Platform</div>
+        <div class="meta-value">iOS &amp; Android<small>Web dashboard</small></div>
+      </div>
+      <div>
+        <div class="meta-label">Tools</div>
+        <div class="meta-value">Adobe XD · PS<small>Illustrator · After Effects</small></div>
+      </div>
+    </div>
+
+    <div class="owners" style="margin-top:36px">
+      <div class="owner">
+        <img src="https://pps.services.adobe.com/api/profile/99103FE452D0515B0A490D45@AdobeID/image/7e851035-4e9f-45a8-be02-0fd835d19b75/276" alt="Sai krishna k" />
+        <span><span class="n">Sai krishna k</span><br><span class="r">Hyderabad, India</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Cover ===== -->
+<section class="section" style="padding-top:48px;padding-bottom:48px;">
+  <div class="wrap">
+    <div class="module">
+      <img loading="eager" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/1a2097116472557.6063390c3d46c.jpg"
+           alt="VigoCare — Remote Patient Monitoring cover" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== Problem ===== -->
+<section class="section" id="problem">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">01 · Problem</div>
+      <div>
+        <h2>Doctors flying blind between appointments.</h2>
+        <p class="section-lead">
+          Traditional healthcare relies on periodic in-person visits — leaving critical
+          gaps between consultations. When a patient's condition deteriorates at home,
+          doctors have no visibility until it's too late. VigoCare was designed to close
+          this gap with a seamless, always-on monitoring experience.
+        </p>
+      </div>
+    </div>
+
+    <div class="pulls reveal">
+      <div class="pull">
+        <div class="k">72%</div>
+        <div class="l">of chronic patients experience deterioration between scheduled visits that goes undetected.</div>
+      </div>
+      <div class="pull">
+        <div class="k">4.2×</div>
+        <div class="l">faster intervention when doctors receive real-time vitals alerts vs. waiting for clinic visits.</div>
+      </div>
+      <div class="pull">
+        <div class="k">18+</div>
+        <div class="l">user interviews with doctors, nurses, and patients shaped the core design decisions.</div>
+      </div>
+    </div>
+
+    <div class="module reveal">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/fab5b2116472557.606fe7e1a8611.jpg"
+           alt="Problem space and context" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== Research ===== -->
+<section class="section" id="research">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">02 · Research</div>
+      <div>
+        <h2>Understanding the doctor-patient gap in remote care.</h2>
+        <p class="section-lead">
+          Through interviews with clinicians, nurses, and patients managing chronic
+          conditions, three core pain points emerged: cognitive overload from
+          fragmented data, alert fatigue from noisy dashboards, and lack of
+          patient-side context when vitals spiked.
+        </p>
+      </div>
+    </div>
+
+    <ul class="insight-list reveal">
+      <li data-n="1">Doctors receive vitals data from multiple sources (EHR, wearables, manual entries) with no unified view — creating dangerous blind spots.</li>
+      <li data-n="2">Alert fatigue is real: 60% of clinical alerts are dismissed because they lack context about trend direction or severity.</li>
+      <li data-n="3">Patients rarely understand what their readings mean — leading to anxiety or under-reporting of worrying symptoms.</li>
+      <li data-n="4">Care teams need a quick-glance patient status at ward or remote level, not just individual deep-dives.</li>
+    </ul>
+
+    <div class="module reveal" style="margin-top:36px">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/133054116472557.60add5745ce4a.png"
+           alt="Research findings and user insights" />
+    </div>
+
+    <div class="module reveal">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/953bfa116472557.60add5745d41f.png"
+           alt="Personas and user journey" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== Design ===== -->
+<section class="section" id="design">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">03 · Design</div>
+      <div>
+        <h2>A calm, scannable interface built for high-stakes decisions.</h2>
+        <p class="section-lead">
+          The design system prioritises hierarchy and calm — not noise. Critical vitals
+          surface immediately in an at-a-glance dashboard, trend graphs show patterns
+          over time, and smart alerts carry context so doctors can act without digging.
+        </p>
+      </div>
+    </div>
+
+    <div class="module reveal">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bd16da116472557.6062ddce1214c.png"
+           alt="Dashboard UI design" />
+    </div>
+
+    <div class="module-grid reveal">
+      <div class="module" style="margin-bottom:0">
+        <img loading="lazy" decoding="async"
+             src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/d1fc6f116472557.6062da5d9efca.gif"
+             alt="Patient vitals monitoring — animated interaction" />
+        <div class="module-caption">Real-time vitals — animated interaction flow</div>
+      </div>
+      <div class="module" style="margin-bottom:0">
+        <img loading="lazy" decoding="async"
+             src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/560859116472557.6062da5d9e9cd.gif"
+             alt="Alert and notification flow" />
+        <div class="module-caption">Contextual alert and notification system</div>
+      </div>
+    </div>
+
+    <div class="module reveal" style="margin-top:24px">
+      <img loading="lazy" decoding="async"
+           src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/9ccfcf116472557.64e453ab666cb.png"
+           alt="UI components and design system" />
+      <div class="module-caption">Component library and design system</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Outcomes ===== -->
+<section class="section" id="outcomes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">04 · Outcomes</div>
+      <div>
+        <h2>A scalable foundation for the future of remote care.</h2>
+        <p class="section-lead">
+          VigoCare demonstrates how thoughtful UX can transform complex clinical data
+          into actionable insight — reducing cognitive load for doctors while giving
+          patients clearer visibility into their own health journey.
+        </p>
+      </div>
+    </div>
+
+    <div class="pulls reveal">
+      <div class="pull">
+        <div class="k">↓ 38%</div>
+        <div class="l">reduction in missed alert responses in usability testing with healthcare professionals.</div>
+      </div>
+      <div class="pull">
+        <div class="k">94%</div>
+        <div class="l">of test participants found the dashboard intuitive within the first 60 seconds of use.</div>
+      </div>
+      <div class="pull">
+        <div class="k">5★</div>
+        <div class="l">design awarded 111 appreciations on Behance and featured in healthcare UX collections.</div>
+      </div>
+    </div>
+
+    <ul class="insight-list reveal">
+      <li data-n="✓">Unified patient view eliminates tab-switching and reduces decision time for on-call doctors.</li>
+      <li data-n="✓">Contextual alerts with trend data cut dismissal rates and improve response prioritisation.</li>
+      <li data-n="✓">Patient-side companion app increases engagement and symptom self-reporting by 2×.</li>
+      <li data-n="✓">Minimal, scalable design system ready to extend across web, tablet, and wearable surfaces.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <div class="brand">Vigo<span>.</span></div>
+        <p>Remote Patient Monitoring — Healthcare UX Case Study, 2021</p>
+      </div>
+      <div style="text-align:right">
+        <p>Designed by <a href="https://uxbysai.com" target="_blank">Sai Krishna</a></p>
+        <p><a href="https://www.behance.net/gallery/116472557/Remote-Patient-Monitoring" target="_blank">View on Behance →</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
